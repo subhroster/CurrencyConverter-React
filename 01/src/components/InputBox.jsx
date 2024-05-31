@@ -30,7 +30,10 @@ function InputBox({
           disabled={amountDisable}
           value={amount}
           onChange={(e) =>
-            onAmountChange && onAmountChange(Number(e.target.value))
+            onAmountChange &&
+            onAmountChange(
+              isNaN(Number(e.target.value)) ? 0 : Number(e.target.value)
+            )
           }
         />
       </div>

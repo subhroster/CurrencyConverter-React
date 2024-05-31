@@ -1,26 +1,24 @@
 import { useState, useEffect } from "react";
+import { fetchCurrencyList } from "../api"; // Adjust the import path as needed
 
-function useCurrencyInfo(currency) {
+function useCurrencyInfo() {
   const [data, setData] = useState({});
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    //let url = `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`;
-    let url = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency.toLowerCase()}.json`;
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Error: ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then((res) => {
-        console.log("Fetched data:", res);
-        setData(res[currency.toLowerCase()]);
-      })
-      .catch((error) => setError(error.message));
-  }, [currency]);
+  const [error, setError] = useState("");
 
-  return data;
+  useEffect(() => {
+    const getCurrencies = async () => {
+      try {
+        const currencyList = await fetchCurrencyList();
+        setData(currencyList);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    getCurrencies();
+  }, []);
+
+  return { data, error };
 }
 
 export default useCurrencyInfo;
