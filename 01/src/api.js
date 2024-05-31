@@ -3,7 +3,6 @@ const BASE_URL = "https://currency-converter5.p.rapidapi.com/currency";
 
 export const fetchCurrencyList = async () => {
   let apiCallCount = parseInt(localStorage.getItem("apiCallCount") || "0", 10);
-
   if (apiCallCount >= 100) {
     console.log("API call limit exceeded " + apiCallCount);
     return { error: "API call limit exceeded" };

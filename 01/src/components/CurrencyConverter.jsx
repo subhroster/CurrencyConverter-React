@@ -13,6 +13,7 @@ function CurrencyConverter() {
 
   const { data: currencyInfo, error } = useCurrencyInfo();
   const options = Object.keys(currencyInfo);
+  const MAX_API_CALL_COUNT = 100;
 
   useEffect(() => {
     const storedApiCallCount = parseInt(
@@ -32,10 +33,12 @@ function CurrencyConverter() {
   const convert = async () => {
     console.log("Convert function called");
 
-    if (apiCallCount >= 10) {
+    if (apiCallCount >= 90) {
       // Adjusted for testing purposes
       setWarningMessage(
-        `Warning: You have ${15 - apiCallCount} API calls left today.`
+        `Warning: You have ${
+          MAX_API_CALL_COUNT - apiCallCount
+        } API calls left today.`
       );
     }
 
