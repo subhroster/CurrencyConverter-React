@@ -33,14 +33,17 @@ function CurrencyConverter() {
         backgroundImage: `url('${BackgroundImage}')`,
       }}
     >
-      <div className="w-full max-w-md mx-auto p-5 glass-effect">
+      <div className="w-full max-w-md mx-auto p-5 bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl">
+        <h1 className="text-2xl font-bold mb-4 animate-fadeIn">
+          Currency Converter
+        </h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             convert();
           }}
         >
-          <div className="w-full mb-1">
+          <div className="w-full mb-4">
             <InputBox
               label="From"
               amount={amount}
@@ -50,16 +53,16 @@ function CurrencyConverter() {
               onAmountChange={setAmount}
             />
           </div>
-          <div className="relative w-full h-0.5">
+          <div className="relative w-full h-0.5 mb-4">
             <button
               type="button"
-              className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
+              className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5 transition-transform duration-200 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300"
               onClick={swap}
             >
               swap
             </button>
           </div>
-          <div className="w-full mt-1 mb-4">
+          <div className="w-full mb-4">
             <InputBox
               label="To"
               amount={convertedAmount}
@@ -71,7 +74,7 @@ function CurrencyConverter() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg"
+            className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
             Convert {from.toUpperCase()} to {to.toUpperCase()}
           </button>
