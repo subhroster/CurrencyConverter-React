@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputBox from "./InputBox";
 import useCurrencyInfo from "../hooks/useCurrencyInfo";
 import { fetchConversionRate } from "../api";
@@ -8,9 +8,19 @@ function CurrencyConverter() {
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("INR");
   const [convertedAmount, setConvertedAmount] = useState(0);
+  const [apiCallCount, setApiCallCount] = useState(0);
+  const [warningMessage, setWarningMessage] = useState("");
 
   const { data: currencyInfo, error } = useCurrencyInfo();
   const options = Object.keys(currencyInfo);
+
+  useEffect(() => {
+    const storedApiCallCount = parseInt(
+      localStorage.getItem("apiCallCount") || "0",
+      10
+    );
+    setApiCallCount(storedApiCallCount);
+  }, []);
 
   const swap = () => {
     setFrom(to);
@@ -21,19 +31,37 @@ function CurrencyConverter() {
 
   const convert = async () => {
     console.log("Convert function called");
-    try {
-      const data = await fetchConversionRate(from, to, amount);
-      console.log("API response:", data);
-      if (data && data.rates && data.rates[to]) {
-        const newConvertedAmount = parseFloat(data.rates[to].rate) * amount;
-        console.log("New converted amount:", newConvertedAmount);
-        setConvertedAmount(isNaN(newConvertedAmount) ? 0 : newConvertedAmount);
-      } else {
-        console.error("Conversion rate not found in the API response");
-      }
-    } catch (error) {
-      console.error("Conversion error:", error);
+
+    if (apiCallCount >= 10) {
+      // Adjusted for testing purposes
+      setWarningMessage(
+        `Warning: You have ${15 - apiCallCount} API calls left today.`
+      );
     }
+
+    const data = await fetchConversionRate(from, to, amount);
+    if (data.error) {
+      if (data.error === "API call limit exceeded") {
+        setWarningMessage(
+          "API call limit exceeded. Please try again tomorrow."
+        );
+      } else {
+        console.error("Conversion error:", data.error);
+      }
+      return;
+    }
+
+    if (data && data.rates && data.rates[to]) {
+      const newConvertedAmount = parseFloat(data.rates[to].rate) * amount;
+      setConvertedAmount(isNaN(newConvertedAmount) ? 0 : newConvertedAmount);
+    } else {
+      console.error("Conversion rate not found in the API response");
+    }
+
+    // Update the local state and local storage with the new API call count
+    const newApiCallCount = apiCallCount + 1;
+    setApiCallCount(newApiCallCount);
+    localStorage.setItem("apiCallCount", newApiCallCount);
   };
 
   return (
@@ -45,6 +73,11 @@ function CurrencyConverter() {
     >
       <div className="w-full">
         <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+          {warningMessage && (
+            <div className="bg-yellow-200 text-yellow-800 p-2 mb-4 rounded">
+              {warningMessage}
+            </div>
+          )}
           <form
             onSubmit={(e) => {
               e.preventDefault();
