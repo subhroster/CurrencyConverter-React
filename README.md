@@ -30,17 +30,31 @@ The project is set up using Vite for a faster and leaner development experience.
 
 ## Project Structure
 ```
-src/
-│
-├── api.js
-├── components/
-│ ├── CurrencyConverter.jsx
-│ └── InputBox.jsx
-├── hooks/
-│ └── useCurrencyInfo.js
-├── App.jsx
-├── index.js
-└── styles.css
+FinancialCalculator
+├── index.html
+├── package.json
+├── postcss.config.js
+├── public
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── api.js
+│   ├── App.css
+│   ├── App.jsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── CurrencyConverter.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Index.js
+│   │   └── InputBox.jsx
+│   ├── hooks
+│   │   └── useCurrencyInfo.js
+│   ├── index.css
+│   └── main.jsx
+├── tailwind.config.js
+└── vite.config.js
+
 ```
 ## Components
 
