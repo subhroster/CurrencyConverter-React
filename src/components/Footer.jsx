@@ -1,22 +1,24 @@
 import React from "react";
+import { FaGithub } from "react-icons/fa"; // Importing GitHub icon from react-icons
 
 const Footer = () => (
-  <footer className="bg-gray-900 w-full py-6">
-    <div className="flex justify-center items-center flex-wrap gap-4">
-      {/* <img src={Logo} alt="logo" className="w-32 h-auto" /> */}
-    </div>
-    <p className="text-center text-lg mt-4 text-white">
-      Made with ❤️ by Subhro Kar
-    </p>
-    <p className="text-center mt-2">
-      <a
-        href="https://www.subhbits.com"
-        className="text-blue-400 hover:text-blue-600 transition-colors duration-300"
-      >
+  <div className="bg-gray-900 text-white w-full py-4 mt-auto">
+    <div className="flex flex-col items-center">
+      <p className="text-center text-lg mt-4">Made with ❤️ by Subhro Kar</p>
+      <a href="https://www.subhbits.com" className="text-blue-400 underline">
         www.subhbits.com
       </a>
-    </p>
-  </footer>
+      <div className="flex items-center mt-4">
+        <FaGithub className="mr-2" />
+        <a
+          href="https://github.com/subhroster/CurrencyConverter-React"
+          className="text-blue-400 underline"
+        >
+          Source code and documentation available on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
 );
 
 export default Footer;

@@ -180,6 +180,37 @@ Add your RapidAPI key:
 ```
 npm start
 ```
+**Deployment on Netlify**
+
+The Currency Converter application is deployed on Netlify, providing users with a live and accessible version of the app.
+
+**Deployment URL:** [Currency Converter App](https://currencyconverterv1.netlify.app/)
+
+
+
+## Steps to Deploy on Netlify
+
+Create a Netlify Account: If you don’t have a Netlify account, create one at Netlify.
+
+Connect Your Repository: Link your GitHub repository to Netlify. This allows Netlify to pull your project files directly from GitHub.
+
+**Configure Build Settings:**
+
+**Build Command:** ```npm run build```
+
+**Publish Directory:** ```dist```
+
+**Add Environment Variables:**
+
+- Go to your site's settings in Netlify.
+- Navigate to Build & Deploy > Environment > Environment Variables.
+- Add a new variable:
+- Key: ```VITE_RAPIDAPI_KEY```
+- Value: Your API key from RapidAPI.
+
+**Deploy Site:** Click on Deploy Site to start the deployment process. Netlify will build and deploy your site automatically.
+
+**Verify Deployment:** Once the deployment is complete, visit your site to ensure everything is working correctly.
 
 ## Conclusion
 This project demonstrates the use of React for building a dynamic and responsive web application. It includes essential features such as API integration, state management, input validation, and responsive design using Tailwind CSS. The application is structured to be easily extendable and maintainable.
