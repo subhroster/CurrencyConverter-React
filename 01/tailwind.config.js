@@ -6,6 +6,9 @@ module.exports = {
       animation: {
         fadeIn: "fadeIn 1s ease-in-out",
       },
+      colors: {
+        customGray: "rgb(17, 24, 39)",
+      },
     },
   },
   variants: {

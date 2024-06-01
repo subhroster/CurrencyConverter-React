@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import InputBox from "./InputBox";
 import useCurrencyInfo from "../hooks/useCurrencyInfo";
 import { fetchConversionRate } from "../api";
-import { FiArrowRight, FiRepeat } from "react-icons/fi"; // Importing icons from react-icons
+import { FiArrowRight, FiRepeat } from "react-icons/fi";
 
 function CurrencyConverter() {
   const [amount, setAmount] = useState(0);
@@ -43,7 +43,6 @@ function CurrencyConverter() {
     }
 
     if (apiCallCount >= 90) {
-      // Adjusted for testing purposes
       setWarningMessage(
         `Warning: You have ${
           MAX_API_CALL_COUNT - apiCallCount
@@ -70,7 +69,6 @@ function CurrencyConverter() {
       console.error("Conversion rate not found in the API response");
     }
 
-    // Update the local state and local storage with the new API call count
     const newApiCallCount = apiCallCount + 1;
     setApiCallCount(newApiCallCount);
     localStorage.setItem("apiCallCount", newApiCallCount);
@@ -78,12 +76,12 @@ function CurrencyConverter() {
 
   return (
     <div
-      className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
+      className="flex flex-col items-center bg-cover bg-no-repeat min-h-screen"
       style={{
         backgroundImage: `url('https://img.freepik.com/free-vector/digital-currency-indain-rupee-symbol-background-with-circuit-lines_1017-45128.jpg?w=1800&t=st=1717218412~exp=1717219012~hmac=a1aded0884eb257f591294e677511e10f4fc5cca21a7777b97e20f4f63cf9714')`,
       }}
     >
-      <div className="w-full">
+      <div className="flex-grow flex items-center justify-center">
         <div className="w-full max-w-xl mx-auto p-8 bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl">
           <h1 className="text-2xl font-bold mb-4 text-center">
             Currency Converter

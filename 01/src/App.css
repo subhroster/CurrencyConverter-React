@@ -1,10 +1,17 @@
+html,
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  /* Prevent horizontal overflow */
+}
+
 #root {
-  min-height: 100vh;
-  /* Ensure it covers the full viewport height */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .logo {
