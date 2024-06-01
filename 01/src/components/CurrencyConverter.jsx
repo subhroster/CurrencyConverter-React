@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import InputBox from "./InputBox";
 import useCurrencyInfo from "../hooks/useCurrencyInfo";
 import { fetchConversionRate } from "../api";
+import { FiArrowRight, FiRepeat } from "react-icons/fi"; // Importing icons from react-icons
 
 function CurrencyConverter() {
   const [amount, setAmount] = useState(0);
@@ -34,7 +35,7 @@ function CurrencyConverter() {
   const convert = async () => {
     console.log("Convert function called");
 
-    if (apiCallCount >= 10) {
+    if (apiCallCount >= 90) {
       // Adjusted for testing purposes
       setWarningMessage(
         `Warning: You have ${
@@ -72,11 +73,14 @@ function CurrencyConverter() {
     <div
       className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
       style={{
-        backgroundImage: `url('https://images.pexels.com/photos/3532540/pexels-photo-3532540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
+        backgroundImage: `url('https://img.freepik.com/free-vector/digital-currency-indain-rupee-symbol-background-with-circuit-lines_1017-45128.jpg?w=1800&t=st=1717218412~exp=1717219012~hmac=a1aded0884eb257f591294e677511e10f4fc5cca21a7777b97e20f4f63cf9714')`,
       }}
     >
       <div className="w-full">
-        <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+        <div className="w-full max-w-xl mx-auto p-8 bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl">
+          <h1 className="text-2xl font-bold mb-4 text-center">
+            Currency Converter
+          </h1>
           {warningMessage && (
             <div className="bg-yellow-200 text-yellow-800 p-2 mb-4 rounded">
               {warningMessage}
@@ -100,16 +104,18 @@ function CurrencyConverter() {
                 }
               />
             </div>
-            <div className="relative w-full h-0.5">
+            <div className="relative w-full h-12 mb-4 mt-4 flex justify-center items-center">
               <button
                 type="button"
-                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
+                className="border-2 border-white rounded-md bg-blue-600 text-white px-4 py-2 flex items-center space-x-2 transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
                 onClick={swap}
               >
-                swap
+                <FiRepeat className="mr-2" />
+                <span>Swap</span>
               </button>
             </div>
-            <div className="w-full mt-1 mb-4">
+
+            <div className="w-full mb-4">
               <InputBox
                 label="To"
                 amount={convertedAmount}
@@ -121,9 +127,10 @@ function CurrencyConverter() {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg"
+              className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
               Convert {from.toUpperCase()} to {to.toUpperCase()}
+              <FiArrowRight className="ml-2" />
             </button>
           </form>
         </div>
