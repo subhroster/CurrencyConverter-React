@@ -1,12 +1,13 @@
+import React from "react";
 import CurrencyConverter from "./components/CurrencyConverter";
 import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-grow flex flex-col">
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow">
         <CurrencyConverter />
-      </main>
+      </div>
       <Footer />
     </div>
   );

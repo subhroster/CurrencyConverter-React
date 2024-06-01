@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import InputBox from "./InputBox";
 import useCurrencyInfo from "../hooks/useCurrencyInfo";
 import { fetchConversionRate } from "../api";
@@ -76,74 +76,70 @@ function CurrencyConverter() {
 
   return (
     <div
-      className="flex flex-col items-center bg-cover bg-no-repeat min-h-screen"
+      className="flex flex-col items-center justify-center bg-cover bg-no-repeat min-h-screen overflow-hidden"
       style={{
-        backgroundImage: `url('https://img.freepik.com/free-vector/digital-currency-indain-rupee-symbol-background-with-circuit-lines_1017-45128.jpg?w=1800&t=st=1717218412~exp=1717219012~hmac=a1aded0884eb257f591294e677511e10f4fc5cca21a7777b97e20f4f63cf9714')`,
+        backgroundImage: `url('https://images.unsplash.com/photo-1565372595781-59667837222a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
       }}
     >
-      <div className="flex-grow flex items-center justify-center">
-        <div className="w-full max-w-xl mx-auto p-8 bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl">
-          <h1 className="text-2xl font-bold mb-4 text-center">
-            Currency Converter
-          </h1>
-          {warningMessage && (
-            <div className="bg-yellow-200 text-yellow-800 p-2 mb-4 rounded">
-              {warningMessage}
-            </div>
-          )}
-          {validationMessage && (
-            <div className="bg-red-200 text-red-800 p-2 mb-4 rounded">
-              {validationMessage}
-            </div>
-          )}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              convert();
-            }}
-          >
-            <div className="w-full mb-1">
-              <InputBox
-                label="From"
-                amount={amount}
-                currencyOptions={options}
-                onCurrencyChange={setFrom}
-                selectCurrency={from}
-                onAmountChange={(amount) =>
-                  setAmount(isNaN(amount) ? 0 : amount)
-                }
-              />
-            </div>
-            <div className="relative w-full h-12 mb-4 mt-4 flex justify-center items-center">
-              <button
-                type="button"
-                className="border-2 border-white rounded-md bg-blue-600 text-white px-4 py-2 flex items-center space-x-2 transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
-                onClick={swap}
-              >
-                <FiRepeat className="mr-2" />
-                <span>Swap</span>
-              </button>
-            </div>
-
-            <div className="w-full mb-4">
-              <InputBox
-                label="To"
-                amount={convertedAmount}
-                currencyOptions={options}
-                onCurrencyChange={setTo}
-                selectCurrency={to}
-                amountDisable
-              />
-            </div>
+      <div className="w-full max-w-xl mx-auto p-8 bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl">
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Currency Converter
+        </h1>
+        {warningMessage && (
+          <div className="bg-yellow-200 text-yellow-800 p-2 mb-4 rounded">
+            {warningMessage}
+          </div>
+        )}
+        {validationMessage && (
+          <div className="bg-red-200 text-red-800 p-2 mb-4 rounded">
+            {validationMessage}
+          </div>
+        )}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            convert();
+          }}
+        >
+          <div className="w-full mb-1">
+            <InputBox
+              label="From"
+              amount={amount}
+              currencyOptions={options}
+              onCurrencyChange={setFrom}
+              selectCurrency={from}
+              onAmountChange={(amount) => setAmount(isNaN(amount) ? 0 : amount)}
+            />
+          </div>
+          <div className="relative w-full h-12 mb-4 mt-4 flex justify-center items-center">
             <button
-              type="submit"
-              className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              type="button"
+              className="border-2 border-white rounded-md bg-blue-600 text-white px-4 py-2 flex items-center space-x-2 transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              onClick={swap}
             >
-              Convert {from.toUpperCase()} to {to.toUpperCase()}
-              <FiArrowRight className="ml-2" />
+              <FiRepeat className="mr-2" />
+              <span>Swap</span>
             </button>
-          </form>
-        </div>
+          </div>
+
+          <div className="w-full mb-4">
+            <InputBox
+              label="To"
+              amount={convertedAmount}
+              currencyOptions={options}
+              onCurrencyChange={setTo}
+              selectCurrency={to}
+              amountDisable
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            Convert {from.toUpperCase()} to {to.toUpperCase()}
+            <FiArrowRight className="ml-2" />
+          </button>
+        </form>
       </div>
     </div>
   );
