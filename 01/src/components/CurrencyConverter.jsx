@@ -11,6 +11,7 @@ function CurrencyConverter() {
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [apiCallCount, setApiCallCount] = useState(0);
   const [warningMessage, setWarningMessage] = useState("");
+  const [validationMessage, setValidationMessage] = useState("");
 
   const { data: currencyInfo, error } = useCurrencyInfo();
   const options = Object.keys(currencyInfo);
@@ -34,6 +35,12 @@ function CurrencyConverter() {
 
   const convert = async () => {
     console.log("Convert function called");
+    if (amount === 0) {
+      setValidationMessage("Please enter a valid amount to convert.");
+      return;
+    } else {
+      setValidationMessage("");
+    }
 
     if (apiCallCount >= 90) {
       // Adjusted for testing purposes
@@ -84,6 +91,11 @@ function CurrencyConverter() {
           {warningMessage && (
             <div className="bg-yellow-200 text-yellow-800 p-2 mb-4 rounded">
               {warningMessage}
+            </div>
+          )}
+          {validationMessage && (
+            <div className="bg-red-200 text-red-800 p-2 mb-4 rounded">
+              {validationMessage}
             </div>
           )}
           <form
