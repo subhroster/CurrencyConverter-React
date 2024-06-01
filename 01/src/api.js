@@ -1,15 +1,45 @@
 const API_KEY = import.meta.env.VITE_RAPIDAPI_KEY;
 const BASE_URL = "https://currency-converter5.p.rapidapi.com/currency";
+const MAX_API_CALL_COUNT = 100;
+
+// Function to get the API call count and reset if a day has passed
+const getApiCallCount = () => {
+  const apiCallData = JSON.parse(localStorage.getItem("apiCallData")) || {
+    count: 0,
+    lastReset: Date.now(),
+  };
+  const currentTime = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+
+  if (currentTime - apiCallData.lastReset > oneDay) {
+    apiCallData.count = 0;
+    apiCallData.lastReset = currentTime;
+    localStorage.setItem("apiCallData", JSON.stringify(apiCallData));
+  }
+
+  console.log(`API Call Count: ${apiCallData.count}`);
+  return apiCallData.count;
+};
+
+// Function to increment the API call count
+const incrementApiCallCount = () => {
+  const apiCallData = JSON.parse(localStorage.getItem("apiCallData")) || {
+    count: 0,
+    lastReset: Date.now(),
+  };
+  apiCallData.count += 1;
+  localStorage.setItem("apiCallData", JSON.stringify(apiCallData));
+  console.log(`API Call Count incremented to: ${apiCallData.count}`);
+};
 
 export const fetchCurrencyList = async () => {
-  let apiCallCount = parseInt(localStorage.getItem("apiCallCount") || "0", 10);
-  if (apiCallCount >= 100) {
+  let apiCallCount = getApiCallCount();
+  if (apiCallCount >= MAX_API_CALL_COUNT) {
     console.log("API call limit exceeded " + apiCallCount);
     return { error: "API call limit exceeded" };
   }
 
-  apiCallCount += 1;
-  localStorage.setItem("apiCallCount", apiCallCount);
+  incrementApiCallCount();
 
   const url = `${BASE_URL}/list`;
 
@@ -35,15 +65,14 @@ export const fetchCurrencyList = async () => {
 };
 
 export const fetchConversionRate = async (from, to, amount) => {
-  let apiCallCount = parseInt(localStorage.getItem("apiCallCount") || "0", 10);
+  let apiCallCount = getApiCallCount();
 
-  if (apiCallCount >= 100) {
+  if (apiCallCount >= MAX_API_CALL_COUNT) {
     console.log("API call limit exceeded " + apiCallCount);
     return { error: "API call limit exceeded" };
   }
 
-  apiCallCount += 1;
-  localStorage.setItem("apiCallCount", apiCallCount);
+  incrementApiCallCount();
 
   const url = `${BASE_URL}/convert?from=${from}&to=${to}&amount=${amount}`;
 

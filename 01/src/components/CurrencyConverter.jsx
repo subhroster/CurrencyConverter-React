@@ -16,11 +16,12 @@ function CurrencyConverter() {
   const MAX_API_CALL_COUNT = 100;
 
   useEffect(() => {
-    const storedApiCallCount = parseInt(
-      localStorage.getItem("apiCallCount") || "0",
-      10
-    );
-    setApiCallCount(storedApiCallCount);
+    const apiCallData = JSON.parse(localStorage.getItem("apiCallData")) || {
+      count: 0,
+      lastReset: Date.now(),
+    };
+    setApiCallCount(apiCallData.count);
+    console.log(`API Call Count on load: ${apiCallData.count}`);
   }, []);
 
   const swap = () => {
@@ -33,7 +34,7 @@ function CurrencyConverter() {
   const convert = async () => {
     console.log("Convert function called");
 
-    if (apiCallCount >= 90) {
+    if (apiCallCount >= 10) {
       // Adjusted for testing purposes
       setWarningMessage(
         `Warning: You have ${
