@@ -1,15 +1,21 @@
 // src/components/Sidebar.jsx
 import React from "react";
-
+import { useTheme } from "../context/ThemeContext";
 const Sidebar = () => {
+  const { theme } = useTheme();
   return (
-    <aside className="w-64 p-4 bg-gray-100">
-      <nav>
+    // <aside
+    //   className={`w-64 p-4 ${
+    //     theme === "dark" ? "bg-gray-800" : "bg-gray-200"
+    //   }} `}
+    // >
+    <aside className="w-64 p-4 bg-gray-100 dark:bg-gray-900  text-gray-500 dark:text-gray-400">
+      <nav className="">
         <ul className="flex-column space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400">
           <li>
             <a
               href="#"
-              className="inline-flex items-center px-4 py-3 text-white bg-blue-700 rounded-lg active w-full dark:bg-blue-600"
+              className="inline-flex items-center px-4 py-3 text-gray-900 dark:text-white bg-blue-700 rounded-lg active w-full"
             >
               Profile
             </a>

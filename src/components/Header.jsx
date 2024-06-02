@@ -1,8 +1,8 @@
 import React from "react";
-//import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Header = () => {
-  //const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="p-4 bg-gray-200 dark:bg-gray-800">
@@ -10,7 +10,7 @@ const Header = () => {
         <h1 className="text-xl font-bold text-gray-900 dark:text-white">
           Financial Calculator
         </h1>
-        {/* <label className="inline-flex items-center cursor-pointer">
+        <label className="inline-flex items-center cursor-pointer">
           <input
             type="checkbox"
             className="sr-only peer"
@@ -21,7 +21,7 @@ const Header = () => {
           <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
             {theme === "light" ? "Light Mode" : "Dark Mode"}
           </span>
-        </label> */}
+        </label>
       </div>
     </header>
   );

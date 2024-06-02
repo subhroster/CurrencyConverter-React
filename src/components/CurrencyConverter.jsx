@@ -3,6 +3,7 @@ import InputBox from "./InputBox";
 import useCurrencyInfo from "../hooks/useCurrencyInfo";
 import { fetchConversionRate } from "../api";
 import { FiArrowRight, FiRepeat } from "react-icons/fi";
+import { useTheme } from "../context/ThemeContext";
 
 function CurrencyConverter() {
   const [amount, setAmount] = useState(0);
@@ -12,6 +13,7 @@ function CurrencyConverter() {
   const [apiCallCount, setApiCallCount] = useState(0);
   const [warningMessage, setWarningMessage] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
+  const { theme } = useTheme();
 
   const { data: currencyInfo, error } = useCurrencyInfo();
   const options = Object.keys(currencyInfo);
@@ -76,13 +78,16 @@ function CurrencyConverter() {
 
   return (
     <section
-      className="flex-1 flex justify-center h-full w-full bg-cover bg-no-repeat p-4 rounded shadow-md mb-4"
+      className="flex-1 flex justify-center h-full w-full bg-cover bg-no-repeat rounded shadow-md mb-4 bg-gray-100 dark:bg-gray-900  text-gray-500 dark:text-gray-400"
       style={{
         backgroundImage: `url('https://images.unsplash.com/photo-1565372595781-59667837222a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
       }}
     >
       <div className="flex flex-col items-center justify-center w-full h-full">
-        <div className="w-72 h-72 bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
+        <div
+          className="bg-white bg-opacity-20 backdrop-blur-lg border border-white border-opacity-30 rounded-lg shadow-lg p-4"
+          style={{ boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)" }}
+        >
           <h2 className="text-2xl font-bold mb-4 text-center">
             Currency Converter
           </h2>
