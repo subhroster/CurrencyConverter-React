@@ -1,17 +1,19 @@
 html,
 html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  /* Prevent horizontal overflow */
-}
 
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+section {
+  min-height: 100vh;
+  /* set the minimum height to 100% of the viewport height */
+  width: 100vw;
+  /* set the width to 100% of the viewport width */
+  position: fixed;
+  /* position the section as fixed */
+  top: 0;
+  /* position the top edge at the top of the viewport */
+  left: 0;
+  /* position the left edge at the left of the viewport */
+  z-index: -1;
+  /* place the section behind other elements */
 }
 
 .logo {
