@@ -75,67 +75,76 @@ function CurrencyConverter() {
   };
 
   return (
-    <section className="items-center justify-center bg-blue-100 p-4 rounded shadow-md mb-4 ">
-      {/* <div className="flex flex-col items-center justify-center w-full h-full"> */}
-      <h1 className="text-2xl font-bold mb-4 text-center">
-        Currency Converter
-      </h1>
-      {warningMessage && (
-        <div className="bg-yellow-200 text-yellow-800 p-2 mb-4 rounded">
-          {warningMessage}
-        </div>
-      )}
-      {validationMessage && (
-        <div className="bg-red-200 text-red-800 p-2 mb-4 rounded">
-          {validationMessage}
-        </div>
-      )}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          convert();
-        }}
-      >
-        <div className="w-full mb-1">
-          <InputBox
-            label="From"
-            amount={amount}
-            currencyOptions={options}
-            onCurrencyChange={setFrom}
-            selectCurrency={from}
-            onAmountChange={(amount) => setAmount(isNaN(amount) ? 0 : amount)}
-          />
-        </div>
-        <div className="relative w-full h-12 mb-4 mt-4 flex justify-center items-center">
-          <button
-            type="button"
-            className="border-2 border-white rounded-md bg-blue-600 text-white px-4 py-2 flex items-center space-x-2 transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
-            onClick={swap}
+    <section
+      className="flex-1 flex justify-center h-full w-full bg-cover bg-no-repeat p-4 rounded shadow-md mb-4"
+      style={{
+        backgroundImage: `url('https://images.unsplash.com/photo-1565372595781-59667837222a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
+      }}
+    >
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <div className="w-72 h-72 bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            Currency Converter
+          </h2>
+          {warningMessage && (
+            <div className="bg-yellow-200 text-yellow-800 p-2 mb-4 rounded">
+              {warningMessage}
+            </div>
+          )}
+          {validationMessage && (
+            <div className="bg-red-200 text-red-800 p-2 mb-4 rounded">
+              {validationMessage}
+            </div>
+          )}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              convert();
+            }}
           >
-            <FiRepeat className="mr-2" />
-            <span>Swap</span>
-          </button>
-        </div>
+            <div className="w-full mb-1">
+              <InputBox
+                label="From"
+                amount={amount}
+                currencyOptions={options}
+                onCurrencyChange={setFrom}
+                selectCurrency={from}
+                onAmountChange={(amount) =>
+                  setAmount(isNaN(amount) ? 0 : amount)
+                }
+              />
+            </div>
+            <div className="relative w-full h-12 mb-4 mt-4 flex justify-center items-center">
+              <button
+                type="button"
+                className="border-2 border-white rounded-md bg-blue-600 text-white px-4 py-2 flex items-center space-x-2 transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                onClick={swap}
+              >
+                <FiRepeat className="mr-2" />
+                <span>Swap</span>
+              </button>
+            </div>
 
-        <div className="w-full mb-4">
-          <InputBox
-            label="To"
-            amount={convertedAmount}
-            currencyOptions={options}
-            onCurrencyChange={setTo}
-            selectCurrency={to}
-            amountDisable
-          />
+            <div className="w-full mb-4">
+              <InputBox
+                label="To"
+                amount={convertedAmount}
+                currencyOptions={options}
+                onCurrencyChange={setTo}
+                selectCurrency={to}
+                amountDisable
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+              Convert {from.toUpperCase()} to {to.toUpperCase()}
+              <FiArrowRight className="ml-2" />
+            </button>
+          </form>
         </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
-        >
-          Convert {from.toUpperCase()} to {to.toUpperCase()}
-          <FiArrowRight className="ml-2" />
-        </button>
-      </form>
-      {/* </div> */}
+      </div>
     </section>
   );
 }
