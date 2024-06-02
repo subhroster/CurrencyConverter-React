@@ -38,7 +38,7 @@ export default function PasswordGenerator() {
       }}
     >
       <div className="flex justify-center items-center w-full h-full">
-        <div className="bg-white bg-opacity-20 backdrop-blur-lg border items-center justify-center  border-white border-opacity-30 rounded-lg shadow-lg w-1/2 h-1/2 flex flex-col p-10">
+        <div className="bg-white bg-opacity-20 backdrop-blur-lg border items-center justify-center  border-white border-opacity-30 rounded-lg shadow-lg w-1/3 h-1/3 flex flex-col p-10">
           <h2 className="text-2xl font-bold mb-4 text-center">
             Password Generator
           </h2>
@@ -68,7 +68,7 @@ export default function PasswordGenerator() {
               id="length-input"
               type="number"
               value={length}
-              className="flex text-right w-1/12"
+              className="flex justtify-center items-center text-center w-1/12 "
               onChange={(e) => setLength(e.target.value)}
             />
           </div>
@@ -86,7 +86,7 @@ export default function PasswordGenerator() {
             />
           </div>
           {/* range input */}
-          <div className="flex w-full mb-4">
+          <div className="flex w-full mb-4 gap-x-2">
             <input
               type="checkbox"
               defaultChecked={numberAllowed}
@@ -97,7 +97,7 @@ export default function PasswordGenerator() {
             />
             <label htmlFor="numberInput">Numbers (0-9)</label>
           </div>
-          <div className="flex w-full">
+          <div className="flex w-full gap-x-2">
             <input
               type="checkbox"
               defaultChecked={charAllowed}
