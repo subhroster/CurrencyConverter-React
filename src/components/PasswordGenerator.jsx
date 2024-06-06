@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 export default function PasswordGenerator() {
+  const { theme } = useTheme(); // Use theme context
   const [length, setLength] = useState(8);
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
@@ -19,7 +21,7 @@ export default function PasswordGenerator() {
     }
 
     setPassword(pass);
-  }, [length, numberAllowed, charAllowed, setPassword]);
+  }, [length, numberAllowed, charAllowed]);
 
   const copyPasswordToClipboard = useCallback(() => {
     passwordRef.current?.select();
@@ -30,86 +32,110 @@ export default function PasswordGenerator() {
   useEffect(() => {
     passwordGenerator();
   }, [length, numberAllowed, charAllowed, passwordGenerator]);
+
   return (
     <section
-      className="flex-1 flex justify-center h-full w-full rounded mb-4 bg-gray-100 dark:bg-gray-800  text-gray-500 dark:text-gray-400 shadow-md  bg-cover bg-no-repeat"
+      className={`flex-1 flex justify-center items-center h-screen w-full rounded ${
+        theme === "dark"
+          ? "bg-dark-background text-dark-text"
+          : "bg-light-background text-light-text"
+      } bg-cover bg-no-repeat`}
       style={{
-        backgroundImage: `url('https://images.pexels.com/photos/1530597/pexels-photo-1530597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
+        backgroundImage: `url('https://images.pexels.com/photos/1530597/pexels-photo-1530597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
       }}
     >
-      <div className="flex justify-center items-center w-full h-full">
-        <div className="bg-white bg-opacity-20 backdrop-blur-lg border items-center justify-center  border-white border-opacity-30 rounded-lg shadow-lg w-1/3 h-1/3 flex flex-col p-10">
-          <h2 className="text-2xl font-bold mb-4 text-center">
+      <div
+        className={`bg-${
+          theme === "dark" ? "dark-card" : "light-card"
+        } bg-opacity-90 backdrop-blur-lg border border-white border-opacity-30 rounded-lg shadow-lg w-80 p-6 ${
+          theme === "dark" ? "text-dark-text" : "text-light-text"
+        }`}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h2
+            className="text-xl font-bold"
+            style={{ color: theme === "dark" ? "#FF7E6B" : "#FE8040" }}
+          >
             Password Generator
           </h2>
-          <div className="flex flex-row mb-4 w-full h-1/4 rounded-lg">
-            {" "}
-            <input
-              type="text"
-              value={password}
-              className="outline-none w-full py-1 px-3"
-              placeholder="Password"
-              readOnly
-              ref={passwordRef}
-            />
-            <button
-              onClick={copyPasswordToClipboard}
-              className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0 min-w-40"
-            >
-              copy
-            </button>
-          </div>
-
-          <div className="flex w-full justify-between mb-3">
-            <label htmlFor="length-input" className="text-left">
-              Length:
-            </label>
-            <input
-              id="length-input"
-              type="number"
-              value={length}
-              className="flex justtify-center items-center text-center w-1/12 "
-              onChange={(e) => setLength(e.target.value)}
-            />
-          </div>
-
-          {/* length input */}
-          <div className="flex w-full justify-between mb-4">
-            <input
-              id="labels-range-input"
-              type="range"
-              min={6}
-              max={100}
-              value={length}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-              onChange={(e) => setLength(e.target.value)}
-            />
-          </div>
-          {/* range input */}
-          <div className="flex w-full mb-4 gap-x-2">
-            <input
-              type="checkbox"
-              defaultChecked={numberAllowed}
-              id="numberInput"
-              onChange={() => {
-                setNumberAllowed((prev) => !prev);
-              }}
-            />
-            <label htmlFor="numberInput">Numbers (0-9)</label>
-          </div>
-          <div className="flex w-full gap-x-2">
-            <input
-              type="checkbox"
-              defaultChecked={charAllowed}
-              id="characterInput"
-              onChange={() => {
-                setCharAllowed((prev) => !prev);
-              }}
-            />
-            <label htmlFor="characterInput">Characters</label>
-          </div>
-          {/* numeber checkbox */}
         </div>
+        <div className="mb-4">
+          <label htmlFor="length-input" className="block text-sm mb-2">
+            Length:
+          </label>
+          <input
+            id="length-input"
+            type="number"
+            value={length}
+            onChange={(e) => setLength(e.target.value)}
+            className={`w-full px-2 py-1 rounded ${
+              theme === "dark"
+                ? "bg-dark-card border-gray-600 text-dark-text"
+                : "bg-light-card border-gray-300 text-light-text"
+            }`}
+          />
+        </div>
+        <div className="mb-4">
+          <input
+            id="labels-range-input"
+            type="range"
+            min={6}
+            max={100}
+            value={length}
+            onChange={(e) => setLength(e.target.value)}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={numberAllowed}
+              onChange={() => setNumberAllowed((prev) => !prev)}
+              className="mr-2"
+            />
+            Numbers (0-9)
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={charAllowed}
+              onChange={() => setCharAllowed((prev) => !prev)}
+              className="mr-2"
+            />
+            Characters
+          </label>
+        </div>
+        <div className="mb-4">
+          <input
+            type="text"
+            value={password}
+            readOnly
+            ref={passwordRef}
+            className={`w-full px-2 py-1 rounded ${
+              theme === "dark"
+                ? "bg-dark-card border-gray-600 text-dark-text"
+                : "bg-light-card border-gray-300 text-light-text"
+            } mb-2`}
+          />
+          <button
+            onClick={copyPasswordToClipboard}
+            className={`w-full ${
+              theme === "dark" ? "bg-[#FF7E6B]" : "bg-[#FE8040]"
+            } text-white py-1 rounded`}
+          >
+            Copy
+          </button>
+        </div>
+        <button
+          onClick={passwordGenerator}
+          className={`w-full ${
+            theme === "dark" ? "bg-[#FF7E6B]" : "bg-[#FE8040]"
+          } text-white py-2 rounded`}
+        >
+          Generate
+        </button>
+        <p className="text-center mt-2 text-sm">Click on generate button.</p>
       </div>
     </section>
   );

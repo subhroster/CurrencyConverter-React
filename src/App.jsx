@@ -1,17 +1,16 @@
-// src/App.js
-import React from "react";
-import Layout from "./components/Layout";
 import { ThemeProvider } from "./context/ThemeContext";
-import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter for routing
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PasswordGenerator from "./components/PasswordGenerator";
+import Header from "./components/Header"; // Import Header component
 
 function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        {/* Wrap your application with BrowserRouter */}
-        <Layout>
-          {/* No need to render Sidebar and MainContent here, they're handled by Layout */}
-        </Layout>
+        <Header /> {/* Render the Header component */}
+        <Routes>
+          <Route path="/" element={<PasswordGenerator />} />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );
